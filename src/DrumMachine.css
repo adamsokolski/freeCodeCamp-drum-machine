@@ -1,0 +1,26 @@
+#display {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.drum-pad {
+  margin: auto;
+  width: 32%;
+  height: 32%;
+  background-color: #2f3135;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 100ms;
+}
+
+.drum-pad:hover {
+  background-color: #3c3d3f;
+}
+
+.drum-pad:active {
+  background-color: #59595a;
+}
