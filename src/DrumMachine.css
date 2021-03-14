@@ -17,6 +17,10 @@
   transition: 100ms;
 }
 
+.drum-pad p {
+  pointer-events: none;
+}
+
 .drum-pad:hover {
   background-color: #3c3d3f;
 }
