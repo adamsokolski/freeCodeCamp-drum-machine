@@ -2,14 +2,7 @@ import React from "react";
 import DrumPad from "./DrumPad";
 import "./DrumMachine.css";
 
-export default function DrumMachine({
-  handleClick,
-  drumPads,
-  currentSound,
-  handlePlay,
-  shadowDrop,
-  animation,
-}) {
+export default function DrumMachine({ handleClick, drumPads, currentSound }) {
   const drumList = drumPads.map((e) => (
     <DrumPad
       key={e.id}
@@ -17,10 +10,7 @@ export default function DrumMachine({
       id={e.id}
       audio={e.audio}
       handleClick={handleClick}
-      handlePlay={handlePlay}
-      shadowDrop={shadowDrop}
       currentSound={currentSound}
-      animation={animation}
     />
   ));
   return (

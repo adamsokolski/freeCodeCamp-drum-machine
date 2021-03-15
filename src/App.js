@@ -11,7 +11,7 @@ export default class App extends Component {
       currentSound: "",
       drumPads: [
         { key: "Q", id: "Kick", audio: soundsArr[0] },
-        { key: "W", id: "Snare TOp", audio: soundsArr[1] },
+        { key: "W", id: "Snare Top", audio: soundsArr[1] },
         { key: "E", id: "Rack Tom", audio: soundsArr[2] },
         { key: "A", id: "Floor Tom", audio: soundsArr[3] },
         { key: "S", id: "High Hat", audio: soundsArr[4] },
@@ -20,22 +20,10 @@ export default class App extends Component {
         { key: "X", id: "22 Inch Crash", audio: soundsArr[7] },
         { key: "C", id: "Frame Drum", audio: soundsArr[8] },
       ],
-      animation: {
-        Q: false,
-        W: false,
-        E: false,
-        A: false,
-        S: false,
-        D: false,
-        Z: false,
-        X: false,
-        C: false,
-      },
     };
     this.handleClick = this.handleClick.bind(this);
     this.render = this.render.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.handlePlay = this.handlePlay.bind(this);
   }
 
   handleKeyPress(event) {
@@ -56,28 +44,9 @@ export default class App extends Component {
     }
   }
 
-  handlePlay(event) {
-    let arr = ["Q", "W", "E", "A", "S", "D", "Z", "X", "C"];
-    if (arr.indexOf(event.key.toUpperCase()) !== -1) {
-      const key = event.key.toUpperCase();
-      let state = Object.assign({}, this.state.animation);
-      state[key] = true;
-      this.setState({
-        animation: state,
-      });
-      setTimeout(() => {
-        state[key] = false;
-        this.setState({
-          animation: state,
-        });
-      }, 700);
-    }
-  }
-
   componentDidMount() {
     document.addEventListener("keydown", (event) => {
       this.handleKeyPress(event);
-      this.handlePlay(event);
     });
   }
   componentWillUnmount() {
@@ -119,9 +88,6 @@ export default class App extends Component {
           handleClick={this.handleClick}
           currentSound={this.state.currentSound}
           drumPads={drumPads}
-          handlePlay={this.handlePlay}
-          shadowDrop={this.state.shadowDrop}
-          animation={this.state.animation}
         />
       </div>
     );
