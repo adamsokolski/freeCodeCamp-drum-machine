@@ -20,20 +20,54 @@ export default class App extends Component {
         { key: "X", id: "22 Inch Crash", audio: soundsArr[7] },
         { key: "C", id: "Frame Drum", audio: soundsArr[8] },
       ],
+      playing: {
+        Q: false,
+        W: false,
+        E: false,
+        A: false,
+        S: false,
+        D: false,
+        Z: false,
+        X: false,
+        C: false,
+      },
     };
     this.handleClick = this.handleClick.bind(this);
     this.render = this.render.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
   }
 
+  componentDidMount() {
+    document.addEventListener("keydown", (event) => {
+      this.handleKeyPress(event);
+    });
+    document.addEventListener("keyup", (event) => {
+      this.handleKeyUp(event);
+    });
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", (event) => {
+      this.handleKeyPress(event);
+    });
+    document.removeEventListener("keyup", (event) => {
+      this.handleKeyUp(event);
+    });
+  }
+
+  // keyboard click
   handleKeyPress(event) {
     console.log(event.key);
     let arr = ["Q", "W", "E", "A", "S", "D", "Z", "X", "C"];
     if (arr.indexOf(event.key.toUpperCase()) !== -1) {
       const key = event.key.toUpperCase();
+      // Change name of current sound
       this.setState({
         currentSound: this.findDrumName(key),
       });
+
+      // start playing audio or reset and start playing
       let audio = document.querySelector(`#${key}`);
       if (audio.paused) {
         audio.play();
@@ -41,27 +75,41 @@ export default class App extends Component {
         audio.currentTime = 0;
         audio.play();
       }
+
+      let state = Object.assign({}, this.state.playing);
+      state[key] = true;
+      this.setState({
+        playing: state,
+      });
     }
   }
 
-  componentDidMount() {
-    document.addEventListener("keydown", (event) => {
-      this.handleKeyPress(event);
-    });
-  }
-  componentWillUnmount() {
-    document.removeEventListener("keydown", (event) => {
-      this.handleKeyPress(event);
-    });
+  // Remove playing class if key is up
+  handleKeyUp(event) {
+    let arr = ["Q", "W", "E", "A", "S", "D", "Z", "X", "C"];
+    if (arr.indexOf(event.key.toUpperCase()) !== -1) {
+      const key = event.key.toUpperCase();
+
+      let state = Object.assign({}, this.state.playing);
+      state[key] = false;
+      this.setState({
+        playing: state,
+      });
+    }
   }
 
+  // Mouse click
   handleClick(e) {
     if (e.target.className === "drum-pad") {
       const key = e.target.children[0].innerText;
       const audio = e.target.children[1];
+
+      // Change name of current sound
       this.setState({
         currentSound: this.findDrumName(key),
       });
+
+      // start playing audio or reset and start playing
       if (audio.paused) {
         audio.play();
       } else {
@@ -81,13 +129,14 @@ export default class App extends Component {
   }
 
   render() {
-    const { drumPads } = this.state;
+    const { currentSound, drumPads, playing } = this.state;
     return (
       <div className="App">
         <DrumMachine
           handleClick={this.handleClick}
-          currentSound={this.state.currentSound}
+          currentSound={currentSound}
           drumPads={drumPads}
+          playing={playing}
         />
       </div>
     );

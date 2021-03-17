@@ -6,14 +6,23 @@
   flex-wrap: wrap;
 }
 
+#display .current-sound {
+  height: 25%;
+  width: 100%;
+  text-align: center;
+  opacity: 0.5;
+
+}
+
 .drum-pad {
-  margin: auto;
-  width: 32%;
-  height: 32%;
+  margin: 2px;
+  width: calc(100% / 3.2);
+  height: calc(100% / 3);
   background-color: #2f3135;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   transition: 100ms;
 }
 
@@ -26,5 +35,10 @@
 }
 
 .drum-pad:active {
+ 
+}
+
+.playing {
   background-color: #59595a;
 }
+
