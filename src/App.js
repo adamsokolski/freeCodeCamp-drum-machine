@@ -58,7 +58,6 @@ export default class App extends Component {
 
   // keyboard click
   handleKeyPress(event) {
-    console.log(event.key);
     let arr = ["Q", "W", "E", "A", "S", "D", "Z", "X", "C"];
     if (arr.indexOf(event.key.toUpperCase()) !== -1) {
       const key = event.key.toUpperCase();

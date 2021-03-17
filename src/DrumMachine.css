@@ -35,7 +35,7 @@
 }
 
 .drum-pad:active {
- 
+  background-color: #59595a;
 }
 
 .playing {
